@@ -122,7 +122,7 @@ resource "aws_vpc_peering_connection_accepter" "accepter" {
   auto_accept               = var.auto_accept
   tags                      = module.accepter.tags
   
-/accepter {
+accepter {
     allow_remote_vpc_dns_resolution = var.accepter_allow_remote_vpc_dns_resolution
   } 
 }
