@@ -92,7 +92,7 @@ data "aws_route_tables" "accepter" {
 }
 
 locals {
-  accepter_aws_route_table_ids = distinct(sort(data.aws_route_tables.accepter.*.ids))
+  accepter_aws_route_table_ids = distinct(sort(data.aws_route_tables.accepter.ids))
   accepter_aws_route_table_ids_count     = length(local.accepter_aws_route_table_ids)
   accepter_cidr_block_associations       = flatten(data.aws_vpc.accepter.cidr_block_associations)
   accepter_cidr_block_associations_count = length(local.accepter_cidr_block_associations)
@@ -115,6 +115,9 @@ resource "aws_route" "accepter" {
   ]
 }
 
+
+
+
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "accepter" {
   provider                  = aws.accepter
@@ -122,19 +125,31 @@ resource "aws_vpc_peering_connection_accepter" "accepter" {
   auto_accept               = var.auto_accept
   tags                      = module.accepter.tags
   
-accepter {
+/* accepter {
     allow_remote_vpc_dns_resolution = var.accepter_allow_remote_vpc_dns_resolution
-  } 
+  }  */
 }
 
-/* resource "aws_vpc_peering_connection_options" "accepter" {
+resource "null_resource" "accepter_awaiter" {
+    triggers = {
+        trigger = uuid()
+    }
+    provisioner "local-exec" {
+        command = "Start-Sleep -Seconds 5"
+        interpreter = ["PowerShell", "-Command"]
+    }
+      depends_on = [aws_vpc_peering_connection_accepter.accepter]
+}
+
+resource "aws_vpc_peering_connection_options" "accepter" {
   provider                  = aws.accepter
   vpc_peering_connection_id = aws_vpc_peering_connection.requester.id
 
   accepter {
     allow_remote_vpc_dns_resolution = var.accepter_allow_remote_vpc_dns_resolution
   }
-}  */
+  depends_on = ["null_resource.accepter_awaiter"]
+}  
 
 output "accepter_connection_id" {
   value       = aws_vpc_peering_connection_accepter.accepter.id
