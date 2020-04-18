@@ -148,7 +148,7 @@ resource "aws_vpc_peering_connection_options" "accepter" {
   accepter {
     allow_remote_vpc_dns_resolution = var.accepter_allow_remote_vpc_dns_resolution
   }
-  depends_on = ["null_resource.accepter_awaiter"]
+  depends_on = [null_resource.accepter_awaiter]
 }  
 
 output "accepter_connection_id" {
