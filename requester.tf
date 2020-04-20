@@ -97,13 +97,17 @@ resource "aws_vpc_peering_connection" "requester" {
   peer_region   = local.accepter_region
   auto_accept   = false
 
+  /* provisioner "local-exec" {
+    command = "aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id=${aws_vpc_peering_connection.peer.id} --region=${var.region}"
+    # command = "aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id=${aws_vpc_peering_connection.peer.id} --region=${var.region} --profile=${var.profile}"
+  } */
   tags = module.requester.tags
-
+/* 
 requester {
     allow_remote_vpc_dns_resolution = var.requester_allow_remote_vpc_dns_resolution
-  } 
+  }  */
 }
-/* 
+
 resource "null_resource" "requester_awaiter" {
     triggers = {
         trigger = uuid()
@@ -114,6 +118,15 @@ resource "null_resource" "requester_awaiter" {
     }
       depends_on = [aws_vpc_peering_connection.requester]
 }
+/* resource "null_resource" "requester_accepter" {
+    triggers = {
+        trigger = uuid()
+    }
+    provisioner "local-exec" {
+        command = "aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id=${aws_vpc_peering_connection.peer.id} --region=${var.region}"
+    }
+      depends_on = [null_resource.requester_awaiter]
+} */
 
 
 resource "aws_vpc_peering_connection_options" "requester" {
@@ -126,8 +139,8 @@ resource "aws_vpc_peering_connection_options" "requester" {
   requester {
     allow_remote_vpc_dns_resolution = var.requester_allow_remote_vpc_dns_resolution
   }
-  depends_on = [null_resource.requester_awaiter]
-}  */
+  depends_on = [null_resource.requester_awaiter,aws_vpc_peering_connection_accepter.accepter]
+}  
 
 locals {
   requester_aws_route_table_ids           = distinct(sort(data.aws_route_table.requester.*.route_table_id))
