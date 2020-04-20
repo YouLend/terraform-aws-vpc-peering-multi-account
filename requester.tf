@@ -99,11 +99,11 @@ resource "aws_vpc_peering_connection" "requester" {
 
   tags = module.requester.tags
 
-/*   requester {
+requester {
     allow_remote_vpc_dns_resolution = var.requester_allow_remote_vpc_dns_resolution
-  }  */
+  } 
 }
-
+/* 
 resource "null_resource" "requester_awaiter" {
     triggers = {
         trigger = uuid()
@@ -127,7 +127,7 @@ resource "aws_vpc_peering_connection_options" "requester" {
     allow_remote_vpc_dns_resolution = var.requester_allow_remote_vpc_dns_resolution
   }
   depends_on = [null_resource.requester_awaiter]
-} 
+}  */
 
 locals {
   requester_aws_route_table_ids           = distinct(sort(data.aws_route_table.requester.*.route_table_id))
