@@ -94,8 +94,8 @@ resource "aws_vpc_peering_connection" "requester" {
   vpc_id        = local.requester_vpc_id
   peer_vpc_id   = local.accepter_vpc_id
   peer_owner_id = local.accepter_account_id
-  peer_region   = local.accepter_region
-  auto_accept   = var.auto_accept
+  #peer_region   = local.accepter_region
+  #auto_accept   = var.auto_accept
 
   /* provisioner "local-exec" {
     command = "aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id=${aws_vpc_peering_connection.peer.id} --region=${var.region}"
@@ -113,7 +113,7 @@ resource "null_resource" "requester_awaiter" {
         trigger = uuid()
     }
     provisioner "local-exec" {
-        command = "Start-Sleep -Seconds 5"
+        command = "sleep 5"
         interpreter = ["PowerShell", "-Command"]
     }
       depends_on = [aws_vpc_peering_connection.requester]
