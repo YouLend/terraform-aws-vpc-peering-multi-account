@@ -125,18 +125,18 @@ resource "aws_vpc_peering_connection_accepter" "accepter" {
   auto_accept               = var.auto_accept
   tags                      = module.accepter.tags
   
-accepter {
+/* accepter {
     allow_remote_vpc_dns_resolution = var.accepter_allow_remote_vpc_dns_resolution
-  } 
+  }  */
 }
 
-/* resource "null_resource" "accepter_awaiter" {
+resource "null_resource" "accepter_awaiter" {
     triggers = {
         trigger = uuid()
     }
     provisioner "local-exec" {
-        command = "Start-Sleep -Seconds 5"
-        interpreter = ["PowerShell", "-Command"]
+        command = "sleep 5"
+        #interpreter = ["PowerShell", "-Command"]
     }
       depends_on = [aws_vpc_peering_connection_accepter.accepter]
 }
@@ -149,7 +149,7 @@ resource "aws_vpc_peering_connection_options" "accepter" {
     allow_remote_vpc_dns_resolution = var.accepter_allow_remote_vpc_dns_resolution
   }
   depends_on = [null_resource.accepter_awaiter]
-}  */ 
+}  
 
 output "accepter_connection_id" {
   value       = aws_vpc_peering_connection_accepter.accepter.id
