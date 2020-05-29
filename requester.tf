@@ -114,7 +114,7 @@ resource "null_resource" "requester_awaiter" {
     }
     provisioner "local-exec" {
         command = "sleep 5"
-        interpreter = ["PowerShell", "-Command"]
+        #interpreter = ["PowerShell", "-Command"]
     }
       depends_on = [aws_vpc_peering_connection.requester]
 }
