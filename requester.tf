@@ -95,7 +95,7 @@ resource "aws_vpc_peering_connection" "requester" {
   peer_vpc_id   = local.accepter_vpc_id
   peer_owner_id = local.accepter_account_id
   peer_region   = local.accepter_region
-  auto_accept   = false
+  auto_accept   = var.auto_accept
 
   tags = module.requester.tags
 
