@@ -25,24 +25,11 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
   description = "Allow accepter VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the requester VPC"
 }
 
-
-
-
-
-
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.0"
-    }
-  }
-}
-
 # Accepter's credentials
 provider "aws" {
   alias   = "accepter"
   region  = var.accepter_region
+  version = "~> 3.0"
   assume_role {
     role_arn = var.accepter_aws_assume_role_arn
   }
