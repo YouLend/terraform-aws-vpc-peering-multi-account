@@ -25,6 +25,11 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
   description = "Allow accepter VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the requester VPC"
 }
 
+
+
+
+
+
 terraform {
   required_providers {
     aws = {
