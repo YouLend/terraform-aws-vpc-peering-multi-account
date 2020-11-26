@@ -56,23 +56,23 @@ module "requester" {
 }
 
 data "aws_caller_identity" "requester" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
 }
 
 data "aws_region" "requester" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
 }
 
 # Lookup requester VPC so that we can reference the CIDR
 data "aws_vpc" "requester" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
   id       = var.requester_vpc_id
   tags     = var.requester_vpc_tags
 }
 
 # Lookup requester subnets
 data "aws_subnet_ids" "requester" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
   vpc_id   = local.requester_vpc_id
 }
 
@@ -85,12 +85,12 @@ locals {
 # Lookup requester route tables
 data "aws_route_table" "requester" {
   count     =  local.requester_subnet_ids_count
-  provider  = aws.default_provider
+#  provider  = aws.default_provider
   subnet_id = element(local.requester_subnet_ids, count.index)
 }
 
 resource "aws_vpc_peering_connection" "requester" {
-  provider      = aws.default_provider
+#  provider      = aws.default_provider
   vpc_id        = local.requester_vpc_id
   peer_vpc_id   = local.accepter_vpc_id
   peer_owner_id = local.accepter_account_id
@@ -130,7 +130,7 @@ resource "null_resource" "requester_awaiter" {
 
 
 resource "aws_vpc_peering_connection_options" "requester" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
 
   # As options can't be set until the connection has been accepted
   # create an explicit dependency on the accepter.
@@ -152,7 +152,7 @@ locals {
 # Create routes from requester to accepter
 resource "aws_route" "requester" {
   count    =  local.requester_aws_route_table_ids_count * local.accepter_cidr_block_associations_count 
-  provider = aws.default_provider
+#  provider = aws.default_provider
   route_table_id = element(
     local.requester_aws_route_table_ids,
     ceil(count.index / local.accepter_cidr_block_associations_count),

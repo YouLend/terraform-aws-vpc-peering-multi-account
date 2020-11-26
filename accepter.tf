@@ -57,23 +57,23 @@ module "accepter" {
 }
 
 data "aws_caller_identity" "accepter" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
 }
 
 data "aws_region" "accepter" {
-    provider = aws.default_provider
+#    provider = aws.default_provider
 }
 
 # Lookup accepter's VPC so that we can reference the CIDR
 data "aws_vpc" "accepter" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
   id       = var.accepter_vpc_id
   tags     = var.accepter_vpc_tags
 }
 
 # Lookup accepter subnets
 data "aws_subnet_ids" "accepter" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
   vpc_id   = local.accepter_vpc_id
 }
 
@@ -87,7 +87,7 @@ locals {
 
 # Lookup accepter route tables
 data "aws_route_tables" "accepter" {
-  provider = aws.default_provider
+#  provider = aws.default_provider
   vpc_id   = local.accepter_vpc_id
 }
 
@@ -101,7 +101,7 @@ locals {
 # Create routes from accepter to requester
 resource "aws_route" "accepter" {
   count    = local.accepter_aws_route_table_ids_count * local.requester_cidr_block_associations_count
-  provider = aws.default_provider
+#  provider = aws.default_provider
   route_table_id = element(
     local.accepter_aws_route_table_ids,
     ceil(count.index / local.requester_cidr_block_associations_count),
@@ -120,7 +120,7 @@ resource "aws_route" "accepter" {
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "accepter" {
-  provider                  = aws.default_provider
+#  provider                  = aws.default_provider
   vpc_peering_connection_id = aws_vpc_peering_connection.requester.id
   auto_accept               = var.auto_accept
   tags                      = module.accepter.tags
@@ -142,7 +142,7 @@ resource "null_resource" "accepter_awaiter" {
 }
 
 resource "aws_vpc_peering_connection_options" "accepter" {
-  provider                  = aws.default_provider
+#  provider                  = aws.default_provider
   vpc_peering_connection_id = aws_vpc_peering_connection.requester.id
 
   accepter {
