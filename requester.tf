@@ -34,15 +34,6 @@ variable "requester_allow_remote_vpc_dns_resolution" {
 #  }
 #}
 
-terraform {
-  required_providers {
-    aws = {
-      alias = "requester"
-    }
-  }
-}
-
-
 locals {
   requester_attributes = concat(var.attributes, ["requester"])
   requester_tags = merge(
