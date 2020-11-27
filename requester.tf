@@ -37,7 +37,7 @@ variable "requester_allow_remote_vpc_dns_resolution" {
 terraform {
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
+      alias = "requester"
     }
   }
 }
