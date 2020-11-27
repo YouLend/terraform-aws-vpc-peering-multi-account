@@ -26,9 +26,6 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
 }
 
 provider "aws" {
-}
-
-provider "aws" {
   alias  = "accepter"
 }
 
