@@ -3,3 +3,5 @@ locals {
   count   = local.enabled ? 1 : 0
 }
 
+provider "aws" {
+}
