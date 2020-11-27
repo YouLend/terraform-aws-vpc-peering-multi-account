@@ -25,6 +25,14 @@ variable "requester_allow_remote_vpc_dns_resolution" {
   description = "Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC"
 }
 
+provider "aws" {
+}
+
+provider "aws" {
+  alias  = "requester"
+}
+
+
 # Requestors's credentials
 #provider "aws" {
 #  alias  = "requester"
