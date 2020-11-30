@@ -26,9 +26,9 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
 }
 
 # Accepter's credentials
-provider "aws" {
-  alias   = "accepter"
-}
+#provider "aws" {
+#  alias   = "accepter"
+#}
 #
 #provider "aws" {
 #  alias   = "accepter2"
@@ -64,9 +64,9 @@ data "aws_caller_identity" "accepter" {
   provider = aws.accepter
 }
 
-#data "aws_region" "accepter" {
-#    provider = aws.accepter
-#}
+data "aws_region" "accepter" {
+    provider = aws.accepter
+}
 
 # Lookup accepter's VPC so that we can reference the CIDR
 data "aws_vpc" "accepter" {
