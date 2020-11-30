@@ -26,9 +26,9 @@ variable "requester_allow_remote_vpc_dns_resolution" {
 }
 
 # Requestors's credentials
-#provider "aws" {
-#  alias  = "requester"
-#}
+provider "aws" {
+  alias  = "requester"
+}
 #
 #provider "aws" {
 #  alias  = "requester2"
