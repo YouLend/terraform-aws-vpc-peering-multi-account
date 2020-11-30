@@ -27,11 +27,11 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
 
 # Accepter's credentials
 provider "aws" {
-  alias   = "accepter2"
+  alias   = "accepter"
 }
 #
 provider "aws" {
-  alias   = "accepter"
+  alias   = "accepter2"
   region  = var.accepter_region
   version = "~> 3.0"
   assume_role {
