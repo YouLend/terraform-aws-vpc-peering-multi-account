@@ -39,6 +39,10 @@ provider "aws" {
   }
 }
 
+output "submodule_arn" {
+  value = var.accepter_aws_assume_role_arn
+}
+
 locals {
   accepter_attributes = concat(var.attributes, ["accepter"])
   accepter_tags = merge(
