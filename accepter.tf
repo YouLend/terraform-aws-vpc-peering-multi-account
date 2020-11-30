@@ -29,10 +29,6 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
 provider "aws" {
   alias   = "accepter2"
 }
-
-output "testing_accepter" {
-  value = provider.aws.accepter2
-}
 #
 provider "aws" {
   alias   = "accepter"

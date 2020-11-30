@@ -30,9 +30,6 @@ provider "aws" {
   alias  = "requester2"
 }
 
-output "testing_requester" {
-  value = aws.requester2
-}
 #
 provider "aws" {
   alias  = "requester"
