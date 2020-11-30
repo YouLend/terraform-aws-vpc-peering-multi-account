@@ -31,7 +31,7 @@ provider "aws" {
 }
 
 output "testing_accepter" {
-  value = aws.accepter2
+  value = provider.aws.accepter2
 }
 #
 provider "aws" {
