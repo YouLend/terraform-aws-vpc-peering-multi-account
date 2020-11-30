@@ -27,11 +27,15 @@ variable "requester_allow_remote_vpc_dns_resolution" {
 
 # Requestors's credentials
 provider "aws" {
-  alias  = "requester"
+  alias  = "requester2"
+}
+
+output "testing_requester" {
+  value = aws.requester2
 }
 #
 provider "aws" {
-  alias  = "requester2"
+  alias  = "requester"
   region = var.requester_region
   assume_role {
     role_arn = var.requester_aws_assume_role_arn
