@@ -31,13 +31,13 @@ provider "aws" {
 }
 
 #
-provider "aws" {
-  alias  = "requester2"
-  region = var.requester_region
-  assume_role {
-    role_arn = var.requester_aws_assume_role_arn
-  }
-}
+#provider "aws" {
+#  alias  = "requester2"
+#  region = var.requester_region
+#  assume_role {
+#    role_arn = var.requester_aws_assume_role_arn
+#  }
+#}
 
 locals {
   requester_attributes = concat(var.attributes, ["requester"])

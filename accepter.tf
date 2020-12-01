@@ -30,14 +30,14 @@ provider "aws" {
   alias   = "accepter2"
 }
 #
-provider "aws" {
-  alias   = "accepter"
-  region  = var.accepter_region
-  version = "~> 3.0"
-  assume_role {
-    role_arn = var.accepter_aws_assume_role_arn
-  }
-}
+#provider "aws" {
+#  alias   = "accepter"
+#  region  = var.accepter_region
+#  version = "~> 3.0"
+#  assume_role {
+#    role_arn = var.accepter_aws_assume_role_arn
+#  }
+#}
 
 output "submodule_arn" {
   value = var.accepter_aws_assume_role_arn
