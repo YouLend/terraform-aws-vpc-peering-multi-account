@@ -27,7 +27,7 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
 
 # Accepter's credentials
 provider "aws" {
-  alias   = "accepter2"
+  alias   = "accepter"
 }
 #
 #provider "aws" {
