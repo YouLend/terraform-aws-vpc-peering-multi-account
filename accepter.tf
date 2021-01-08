@@ -80,10 +80,10 @@ data "aws_vpc" "accepter" {
 }
 
 # Lookup accepter subnets
-data "aws_subnet_ids" "accepter" {
-  provider = aws.accepter
-  vpc_id   = local.accepter_vpc_id
-}
+#data "aws_subnet_ids" "accepter" {
+#  provider = aws.accepter
+#  vpc_id   = local.accepter_vpc_id
+#}
 
 locals {
 #  accepter_subnet_ids       = distinct(sort(flatten(data.aws_subnet_ids.accepter.ids)))
