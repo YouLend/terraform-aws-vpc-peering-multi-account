@@ -113,16 +113,16 @@ requester {
   }  */
 }
 
-resource "null_resource" "requester_awaiter" {
-    triggers = {
-        trigger = uuid()
-    }
-    provisioner "local-exec" {
-        command = "sleep 5"
-        #interpreter = ["PowerShell", "-Command"]
-    }
-      depends_on = [aws_vpc_peering_connection.requester]
-}
+#resource "null_resource" "requester_awaiter" {
+#    triggers = {
+#        trigger = uuid()
+#    }
+#    provisioner "local-exec" {
+#        command = "sleep 5"
+#        #interpreter = ["PowerShell", "-Command"]
+#    }
+#      depends_on = [aws_vpc_peering_connection.requester]
+#}
 /* resource "null_resource" "requester_accepter" {
     triggers = {
         trigger = uuid()
@@ -130,7 +130,7 @@ resource "null_resource" "requester_awaiter" {
     provisioner "local-exec" {
         command = "aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id=${aws_vpc_peering_connection.peer.id} --region=${var.region}"
     }
-      depends_on = [null_resource.requester_awaiter]
+#      depends_on = [null_resource.requester_awaiter]
 } */
 
 
@@ -144,7 +144,7 @@ resource "aws_vpc_peering_connection_options" "requester" {
   requester {
     allow_remote_vpc_dns_resolution = var.requester_allow_remote_vpc_dns_resolution
   }
-  depends_on = [null_resource.requester_awaiter,aws_vpc_peering_connection_accepter.accepter]
+#  depends_on = [null_resource.requester_awaiter,aws_vpc_peering_connection_accepter.accepter]
 }  
 
 locals {
